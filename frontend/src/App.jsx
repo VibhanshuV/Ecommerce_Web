@@ -1,34 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import AuthLayout from './components/auth/authLayout.jsx';
+import AuthLogin from './pages/auth/login.jsx';
+import AuthRegister from './pages/auth/register.jsx';
+import AdminLayout from './components/admin-view/layout';
+import AdminDashboard from './pages/admin-view/dashboard';
+import AdminProducts from './pages/admin-view/products';
+import AdminOrders from './pages/admin-view/orders';
+import AdminFeatures from './pages/admin-view/features';
+import ShoppingLayout from './components/shopping-view/layout';
+import NotFound from './pages/not-found';
+import ShoppingCheckout from './pages/shopping-view/checkout';
+import ShoppingHome from './pages/shopping-view/home';
+import ShoppingListing from './pages/shopping-view/listing';
+import ShoppingAccount from './pages/shopping-view/account';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+ 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='flex flex-col overflow-hidden bg-white w-full h-full'>
+      <Routes>
+        <Route path='/auth' element={<AuthLayout/>}> 
+          <Route path='login' element={<AuthLogin/>}/>
+          <Route path='register' element={<AuthRegister/>}/>
+        </Route>
+
+        <Route path='/admin' element={<AdminLayout/>}>
+          <Route path='dashboard' element={<AdminDashboard/>}/>
+          <Route path='products' element={<AdminProducts/>}/>
+          <Route path='orders' element={<AdminOrders/>}/>
+          <Route path='features' element={<AdminFeatures/>}/>
+        </Route>
+
+        <Route path='/shop' element={<ShoppingLayout/>}>
+          <Route path='checkout' element={<ShoppingCheckout/>}/>
+          <Route path='home' element={<ShoppingHome/>}/>
+          <Route path='listing' element={<ShoppingListing/>}/>
+          <Route path='account' element={<ShoppingAccount/>}/>
+        </Route>
+
+        <Route path='*' element={<NotFound/>}/>
+      </Routes>
+    </div>
   )
 }
 
