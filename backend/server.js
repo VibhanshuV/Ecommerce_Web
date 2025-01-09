@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { connectMongoDB } from './db/connectMongoDB.js';
+import authRoutes from './routes/auth.js'
 import cors from 'cors';
 
 dotenv.config();
@@ -18,6 +19,9 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Expires", "Pragma"],
     credentials: true
 }));
+
+app.use("/api/auth", authRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('Server is ready');
